@@ -1,0 +1,18 @@
+*{
+  margin:0;
+  padding: 0;
+  box-sizing: none;
+}
+
+body,html{
+  overflow: hidden;
+}
+body {
+  background:rgb(54, 54, 58); 
+  display: flex;
+  justify-content: center;
+}
+canvas{
+  background-color: black;
+  
+}
