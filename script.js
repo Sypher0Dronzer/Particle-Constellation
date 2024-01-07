@@ -9,22 +9,25 @@ canvas.height = window.innerHeight;
 const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
 
 // Add three color stops
-gradient.addColorStop(0, "white");
-gradient.addColorStop(0.7, "gold");
-gradient.addColorStop(1, "orangered");
+gradient.addColorStop(0, "#FED207");
+gradient.addColorStop(0.2, "#FFB009");
+gradient.addColorStop(0.4, "#FE6D5D");
+gradient.addColorStop(0.6, "#F438AA");
+gradient.addColorStop(0.8, "#FF02FD");
+gradient.addColorStop(1, "#BD033B");
 
 class Particle {
   constructor(effect) {
     this.effect = effect;
-    this.radius = Math.random() * 6 + 2;
+    this.radius = Math.random() * 15 + 6;
     this.x =
       this.radius +
       Math.floor(Math.random() * (this.effect.width - this.radius * 2));
     this.y =
       this.radius +
       Math.floor(Math.random() * (this.effect.height - this.radius * 2));
-    this.velX = Math.random() * 2 - 1;
-    this.velY = Math.random() * 2 - 1;
+    this.velX = Math.random() * 1.5 -0.75;
+    this.velY = Math.random() * 1.5 -0.75;
     // this push acts as a acceleration
     // now similar way we need friction to reduce the speed as well
     this.pushX = 0;
@@ -43,8 +46,18 @@ class Particle {
   draw(context) {
     context.fillStyle = gradient;
     context.beginPath();
+    context.globalAlpha=0.9
+
     context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
     context.fill();
+    context.beginPath();
+    context.save()
+    context.globalAlpha=0.7
+    context.fillStyle = "white";
+    context.arc(this.x - this.radius*0.2, this.y - this.radius*0.2, this.radius *0.5, 0, 2 * Math.PI);
+    context.fill();
+
+    context.restore();
   }
   // for bouncing
   update() {
@@ -151,7 +164,7 @@ class Effect {
     });
   }
   connectParticles(context) {
-    let maxDistance = 100;
+    let maxDistance = 80;
     for (let a = 0; a < this.particles.length; a++) {
       for (let b = a; b < this.particles.length; b++) {
         let dx = this.particles[a].x - this.particles[b].x;
